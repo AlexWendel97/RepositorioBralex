@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Bralex - Sua Conta</title>
+</h:head>
+<body bgcolor="#FF0000">
+<h:body>
+	<h:form>
+		<p:outputLabel value="Bem vindo #{contaMB.conta.usuario.nome} !" />
+		<br />
+		<p:commandButton value="Alterar dados de cadastro" action="atualizar"
+			immediate="true" />
+		<p:commandButton value="Encerrar conta" action="#{contaMB.remover}">
+			<p:confirm header="Confirmação"
+				message="Confirmar encerramento de conta?" icon="ui-icon-alert" />
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</p:commandButton>
+		<br />
+		<p:commandLink value="Sair" action="#{contaMB.sair}" />
+		<br />
+		<p:outputLabel value="Saldo: #{contaMB.conta.saldo}" />
+		<p:separator />
+		<p:outputLabel value="Histórico de Transações:" />
+		<br />
+		<p:dataTable id="items" emptyMessage="Nenhuma transação realizada"
+			value="#{contaMB.conta.transacoes}" var="item">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Data" />
+				</f:facet>
+				<h:outputText value="#{item.dataTransacao}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Tipo" />
+				</f:facet>
+				<h:outputText value="#{item.tipo}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Agência Destino" />
+				</f:facet>
+				<h:outputText value="#{item.agenciaDestino}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Conta Destino" />
+				</f:facet>
+				<h:outputText value="#{item.contaDestino}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Valor" />
+				</f:facet>
+				<h:outputText value="#{item.valor}" />
+			</p:column>
+		</p:dataTable>
+		<br />
+		<p:commandButton value="Realizar depósito" action="deposito"
+			immediate="true" />
+		<p:commandButton value="Realizar transferência" action="transacao"
+			immediate="true" />
+		<p:commandButton value="Buscar devedores" action="#{contaMB.buscaDev}"
+			immediate="true" />
+
+	</h:form>
+</h:body>
+</body>
+</html>
